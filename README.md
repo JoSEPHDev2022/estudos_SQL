@@ -1,6 +1,5 @@
 # estudos_SQL
 
-# ToDo6_Modelagem_e_Aplicacao_Banco_de_Dados
 ![banner_ilustrativo](https://arquivo.devmedia.com.br/cursos/imagem/curso_de-postgresql_1904.jpg)
 
 ### 📑 **O que temos aqui?**
