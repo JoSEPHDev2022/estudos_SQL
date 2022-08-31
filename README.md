@@ -3,7 +3,7 @@
 ![banner_ilustrativo](https://arquivo.devmedia.com.br/cursos/imagem/curso_de-postgresql_1904.jpg)
 
 ### 📑 **O que temos aqui?**
-> Nesse repositório, temos três pastas:
+> Nesse repositório, temos quatro pastas:
 >
 > 1. Lojinha: Esse repositório contém um banco de dados bem simples com apenas 3 entidades, pois o foco dele é o estudo introdutório de diversas funcionalidades e manipulações de dados com SQL. É o que possuí mais conteúdo dos bancos desse projeto.
 >
