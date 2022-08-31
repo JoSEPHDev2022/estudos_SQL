@@ -3,15 +3,15 @@
 ![banner_ilustrativo](https://arquivo.devmedia.com.br/cursos/imagem/curso_de-postgresql_1904.jpg)
 
 ### 📑 **O que temos aqui?**
-> Nesse repositório, temos dois bancos de dados e dois arquivos contendo queries de estudos sobre PostgreSQL, onde respondo algumas perguntas de análise desses bancos utilizando as queries.
+> Nesse repositório, temos três pastas:
 >
-> 1. O primeiro banco de dados, um mais simples, está localizado no arquivo "bd_pizzaria", que possue o código de criação desse banco emulando uma pizzaria.
+> 1. Lojinha: Esse repositório contém um banco de dados bem simples com apenas 3 entidades, pois o foco dele é o estudo introdutório de diversas funcionalidades e manipulações de dados com SQL. É o que possuí mais conteúdo dos bancos desse projeto.
 >
-> 2. O segundo banco de dados, mais complexo, está localizado no arquivo "bd_playlist", que possui o código de criação desse banco baseado no Spotify.
+> 2. Pizzaria: Contém um banco de dados simulando uma pizzaria e diversas queries exploratórias desse banco.
 >
-> 3. As queries para a pizzaria estão localizadas no arquivo "queries_pizzaria" e as da playlist estão no arquivo "queries_playlist".
+> 3. Playlist: Contém um banco de dados inspirado em registros do Spotify e queries exploratórias.
 >
-> 4. Uma atividade simples inicial de criação e utilização de triggers, localizada no arquivo "atv_trigger".
+> 4. Variados: Contém estudos diversos da linguagem SQL que não estão atrelados a algum banco de dado mencionado previamente, como Triggers, Cases, Views, etc.
 ---
 ### 🎯 **Objetivo:**
 > Repositório que contém dois bancos de dados e queries SQL de análise respondendo algumas perguntas. O objetivo desse repositório, é compartilhar meus estudos e desenvolvimento em PostgreSQL.
