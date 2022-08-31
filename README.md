@@ -14,7 +14,7 @@
 > 4. Variados: Contém estudos diversos da linguagem SQL que não estão atrelados a algum banco de dado mencionado previamente, como Triggers, Cases, Views, etc.
 ---
 ### 🎯 **Objetivo:**
-> Repositório que contém dois bancos de dados e queries SQL de análise respondendo algumas perguntas. O objetivo desse repositório, é compartilhar meus estudos e desenvolvimento em PostgreSQL.
+> Repositório que contém bancos de dados e queries SQL de análise respondendo algumas perguntas. O objetivo desse repositório, é compartilhar meus estudos e desenvolvimento em PostgreSQL.
 ---
 ### 💻 **Ferramentas utilizadas para a elaboração:**
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
@@ -31,3 +31,6 @@
 > - Consultas e Queries no banco de dados:
 >   - inner, left, right joins
 >   - subqueries
+>   - Views
+>   - Triggers e Functions
+>   - Cases
