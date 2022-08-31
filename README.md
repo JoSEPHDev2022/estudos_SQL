@@ -10,6 +10,8 @@
 > 2. O segundo banco de dados, mais complexo, está localizado no arquivo "bd_playlist", que possui o código de criação desse banco baseado no Spotify.
 >
 > 3. As queries para a pizzaria estão localizadas no arquivo "queries_pizzaria" e as da playlist estão no arquivo "queries_playlist".
+>
+> 4. Uma atividade simples inicial de criação e utilização de triggers, localizada no arquivo "atv_trigger".
 ---
 ### 🎯 **Objetivo:**
 > Repositório que contém dois bancos de dados e queries SQL de análise respondendo algumas perguntas. O objetivo desse repositório, é compartilhar meus estudos e desenvolvimento em PostgreSQL.
