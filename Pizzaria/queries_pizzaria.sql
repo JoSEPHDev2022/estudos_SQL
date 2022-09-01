@@ -236,3 +236,173 @@ CREATE VIEW ultimos_pedidos AS
 	ORDER BY 2;
 	
 SELECT * FROM ultimos_pedidos;
+
+-- Selecionar o nome de todos os clientes, associar com seus pedidos, os nomes das pizzas
+-- escolhidas e verificar quem nunca fez um pedido;
+SELECT
+	CL.nome AS cliente,
+	PD.id_pedido AS "número do pedido",
+	PZ.nome AS "sabor da pizza"
+FROM tb_cliente CL
+	LEFT JOIN tb_pedido PD
+		ON PD.id_cliente = CL.id_cliente
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pedido = PD.id_pedido
+	LEFT JOIN tb_pizza PZ
+		ON PZ.id_pizza = PDZ.id_pizza
+GROUP BY 
+	1, 2, 3
+ORDER BY
+	2 NULLS FIRST;
+
+-- Selecionar o nome de todos os clientes que fizeram pedidos e mostrar qual o valor gasto
+-- por cada um até hoje na pizzaria e mostrar uma nova tabela dizendo "Cliente Prioritário",
+-- para cada clientes que gastou mais de 220 reais na pizzaria, e mostrar "Cliente Comum"
+-- para clientes que gastaram menos que isso;
+SELECT
+	CL.nome AS cliente,
+	SUM(PD.preco) AS "valor gasto",
+		CASE
+			WHEN SUM(PD.preco) > 220 THEN 'Cliente Prioritário'
+			ELSE 'Cliente Comum'
+		END AS "status do cliente"
+FROM tb_cliente CL
+	INNER JOIN tb_pedido PD
+		ON CL.id_cliente = PD.id_cliente
+GROUP BY 
+	1
+ORDER BY
+	2 DESC;
+
+-- Selecionar o valor em vendas de todas as pizzas 'Zero Lactose' existentes;
+SELECT
+	PZ.nome AS "sabor da pizza",
+	PZ.categoria,
+	SUM(PD.preco) AS "valor total"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PDZ.id_pedido = PD.id_pedido
+GROUP BY 
+	1, 2
+	HAVING 
+		PZ.categoria = 'Zero Lactose'
+ORDER BY
+	3 DESC;
+
+-- Selecionar o nome de todas as pizzas, associar com os pedidos, os nomes dos clientes que
+-- as escolheram e verificar quais pizzas nunca foram pedidas;
+SELECT
+	PZ.nome AS "sabor da pizza",
+	PD.id_pedido AS "número do pedido",
+	CL.nome AS "cliente"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+	LEFT JOIN tb_cliente CL
+		ON CL.id_cliente = PD.id_cliente
+GROUP BY
+	1,2,3
+ORDER BY 
+	2 NULLS FIRST;
+
+-- Selecionar o preço médio das categorias de pizza;
+SELECT 
+	PZ.categoria,
+	ROUND(AVG(PZ.preco)) AS "média de preço"
+FROM tb_pizza PZ
+GROUP BY
+	1
+ORDER BY
+	2;
+	
+-- Selecionar todas as pizzas que possuem preço maior ou igual a 45 e menor ou igual a 55
+-- de duas formas diferentes;
+	
+	-- Forma 1:
+	SELECT 
+		PZ.nome AS "sabor da pizza",
+		PZ.preco AS "preço da pizza"
+	FROM tb_pizza PZ
+	WHERE 
+		PZ.preco >= 45 AND
+		PZ.preco <= 55;
+		
+	-- Forma 2:
+	SELECT 
+		PZ.nome AS "sabor da pizza",
+		PZ.preco AS "preço da pizza"
+	FROM tb_pizza PZ
+	WHERE 
+		PZ.preco BETWEEN 45 AND 55;
+		
+	-- Forma bônus:
+	SELECT 
+		PZ.nome AS "sabor da pizza",
+		PZ.preco AS "preço da pizza",
+			CASE
+				WHEN PZ.preco BETWEEN 45 AND 55 THEN 'VÁLIDAS'
+				ELSE 'inválidas'
+			END AS "condição"
+	FROM tb_pizza PZ;
+
+-- Mostrar todas as pizzas existentes no cardápio com nome, descrição, preço e com uma 
+-- coluna adicional que indique se a pizza possui ou não presunto;
+SELECT 
+	PZ.nome AS "sabor da pizza",
+	PZ.descricao AS "descrição",
+	PZ.preco AS "preço",
+		CASE
+			WHEN PZ.descricao NOT LIKE '%presunto%' THEN 'Não contém presunto'
+			ELSE 'Contém presunto'
+		END AS "observação"
+FROM tb_pizza PZ
+ORDER BY 
+	4;
+	
+-- Selecionar de forma ordenada o nome e o valor das 5 pizzas mais baratas do cardápio em
+-- ordem crescente;
+SELECT
+	PZ.nome AS "sabor da pizza",
+	PZ.preco AS "preço"
+FROM tb_pizza PZ
+ORDER BY
+	2
+LIMIT 5;
+
+-- Selecionar em ordem decrescente as 10 pizzas mais pedidas entre todas as pizzas com id, 
+-- nome e quantidade de pedidos;
+SELECT
+	PZ.id_pizza,
+	PZ.nome AS "sabor da pizza",
+	COUNT(PD.id_pedido) AS "número de pedidas"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+GROUP BY
+	1, 2
+ORDER BY
+	3 DESC
+LIMIT 10;
+
+-- Selecionar quais os 3 clientes que pediram menos pizzas nos bairros da Liberdade e do
+-- Centro;
+SELECT 
+	CL.nome,
+	CL.endereco,
+	COUNT(PD.id_cliente) AS pedidos_feitos
+FROM tb_cliente CL
+	LEFT JOIN tb_pedido PD
+		ON PD.id_cliente = CL.id_cliente
+GROUP BY 
+	1, 2
+	HAVING 
+		CL.endereco LIKE '%Centro' OR
+		CL.endereco LIKE '%Liberdade'
+ORDER BY
+	3;
