@@ -1,69 +1,79 @@
 -- Selecionar os nomes dos clientes que realizaram mais de 2 pedidos.
-SELECT COUNT(id_pedido) AS pedidos, nome FROM
-	(SELECT 
-		tb_cliente.nome, 
-		tb_pedido.id_pedido
-	FROM
-		tb_pedido
-		INNER JOIN tb_cliente
-			ON tb_pedido.id_cliente = tb_cliente.id_cliente)
-AS tabela
-GROUP BY nome
-	HAVING COUNT(id_pedido) > 2;
+SELECT 
+	CL.nome AS "cliente",
+	COUNT(PD.id_pedido) AS "num de pedidos"
+FROM tb_cliente CL
+	INNER JOIN tb_pedido PD
+		ON PD.id_cliente = CL.id_cliente
+GROUP BY 1
+	HAVING COUNT(PD.id_pedido) > 2
+ORDER BY 2 DESC;
 
 -- Retornar a quantidade de pedidos de cada pizza.
-SELECT COUNT(id_pedido) AS pedido, nome FROM
-	(SELECT tb_pizza.nome, tb_pedido.id_pedido FROM tb_pedido_pizza
-		INNER JOIN tb_pizza
-			ON tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
-		INNER JOIN tb_pedido
-			ON tb_pedido_pizza.id_pedido = tb_pedido.id_pedido)
-AS tabela
-GROUP BY nome
-ORDER BY COUNT(id_pedido) DESC;
+SELECT
+	PZ.nome AS "sabor da pizza",
+	COUNT(PD.id_pedido) AS "num de pedidos"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+GROUP BY 1
+ORDER BY 2 DESC;
 
 -- Retornar a quantidade de pedidos de cada categoria de pizza.
-SELECT COUNT(id_pedido) AS pedido, categoria FROM 
-	 (SELECT tb_pizza.categoria, tb_pedido.id_pedido FROM tb_pedido_pizza
-	 	INNER JOIN tb_pizza
-	 		ON tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
-	 	INNER JOIN tb_pedido
-	 		ON tb_pedido_pizza.id_pedido = tb_pedido.id_pedido)
-AS tabela
-GROUP BY categoria
-ORDER BY COUNT(id_pedido) DESC;
+SELECT
+	PZ.categoria,
+	COUNT(PD.id_pedido) AS "num de pedidos"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+GROUP BY 1
+ORDER BY 2 DESC;
 
 -- Retornar a soma dos preços dos pedidos agrupados pelo nome da pizza.
-SELECT SUM(preco), nome FROM
-	(SELECT tb_pizza.nome, tb_pedido.preco FROM tb_pedido_pizza
-		INNER JOIN tb_pizza
-			ON tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
-		INNER JOIN tb_pedido
-			ON tb_pedido_pizza.id_pedido = tb_pedido.id_pedido)
-AS tabela
-GROUP BY nome
-ORDER BY SUM(preco) DESC;
+SELECT
+	PZ.nome AS "sabor da pizza",
+	SUM(PD.preco) AS "soma dos preços"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+GROUP BY 1
+ORDER BY 2 DESC NULLS LAST;
 
 -- Retornar a soma dos preços dos pedidos agrupados pelo nome da pizza, filtrando pelas
 -- pizzas de categoria 'Zero Lactose'.
-SELECT SUM(preco), nome, categoria FROM
-	(SELECT tb_pizza.nome, tb_pedido.preco, tb_pizza.categoria FROM tb_pedido_pizza
-		INNER JOIN tb_pizza
-			ON tb_pedido_pizza.id_pizza = tb_pizza.id_pizza
-		INNER JOIN tb_pedido
-			ON tb_pedido_pizza.id_pedido = tb_pedido.id_pedido)
-AS tabela
-GROUP BY nome, categoria
-	HAVING categoria = 'Zero Lactose'
-ORDER BY SUM(preco) DESC;
+SELECT 
+	PZ.nome AS "sabor da pizza",
+	PZ.categoria,
+	SUM(PD.preco) AS "soma dos preços"
+FROM tb_pizza PZ
+	LEFT JOIN tb_pedido_pizza PDZ
+		ON PDZ.id_pizza = PZ.id_pizza
+	LEFT JOIN tb_pedido PD
+		ON PD.id_pedido = PDZ.id_pedido
+GROUP BY 1, 2
+	HAVING PZ.categoria = 'Zero Lactose'
+ORDER BY 3 DESC NULLS LAST;
 
 ----------------------------------------------------------------------------------------------------
 -- Selecione o nome dos clientes e o preço dos pedidos com o tipo de entrega Delivery;
-SELECT tb_cliente.nome, tb_pedido.preco, tb_pedido.tipo_entrega FROM tb_pedido
-	INNER JOIN tb_cliente
-		ON tb_pedido.id_cliente = tb_cliente.id_cliente
-	WHERE tipo_entrega = 'Delivery';
-    
+SELECT 
+	CL.nome AS "cliente",
+	PD.preco AS "valor do pedido",
+	PD.id_pedido,
+	PD.tipo_entrega AS "tipo da entrega"
+FROM tb_cliente CL
+	LEFT JOIN tb_pedido PD
+		ON PD.id_cliente = CL.id_cliente
+GROUP BY 1,2,3,4
+	HAVING PD.tipo_entrega = 'Delivery'
+ORDER BY 2 DESC;
+
 -- Selecione o nome dos clientes e o nome das pizas pedidas por eles;
 SELECT
 	tb_cliente.nome AS cliente,
