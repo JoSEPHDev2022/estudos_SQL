@@ -5,13 +5,15 @@
 ### 📑 **O que temos aqui?**
 > Nesse repositório, temos quatro pastas:
 >
-> 1. Lojinha: Esse repositório contém um banco de dados bem simples com apenas 3 entidades, pois o foco dele é o estudo introdutório de diversas funcionalidades e manipulações de dados com SQL. É o que possuí mais conteúdo dos bancos desse projeto.
+> 1. Formacao_Alura_PSQL: Um repositório que contém meus estudos e progresso na trilha de formação PostgreSQL pela Alura.
 >
-> 2. Pizzaria: Contém um banco de dados simulando uma pizzaria e diversas queries exploratórias desse banco.
+> 2. Lojinha: Esse repositório contém um banco de dados bem simples com apenas 3 entidades, pois o foco dele é o estudo introdutório de diversas funcionalidades e manipulações de dados com SQL. É o que possuí mais conteúdo dos bancos desse projeto.
 >
-> 3. Playlist: Contém um banco de dados inspirado em registros do Spotify e queries exploratórias.
+> 3. Pizzaria: Contém um banco de dados simulando uma pizzaria e diversas queries exploratórias desse banco.
 >
-> 4. Variados: Contém estudos diversos da linguagem SQL que não estão atrelados a algum banco de dado mencionado previamente, como Triggers, Cases, Views, etc.
+> 4. Playlist: Contém um banco de dados inspirado em registros do Spotify e queries exploratórias.
+>
+> 5. Variados: Contém estudos diversos da linguagem SQL que não estão atrelados a algum banco de dado mencionado previamente, como Triggers, Cases, Views, etc.
 ---
 ### 🎯 **Objetivo:**
 > Repositório que contém bancos de dados e queries SQL de análise respondendo algumas perguntas. O objetivo desse repositório, é compartilhar meus estudos e desenvolvimento em PostgreSQL.
